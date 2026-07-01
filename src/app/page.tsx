@@ -12,6 +12,7 @@ import {
 } from "@/components/icons";
 import { InPageNav } from "@/components/in-page-nav";
 import { Spotlight } from "@/components/spotlight";
+import { ScrollTopButton } from "@/components/ui/scroll-top-button";
 
 type LinkItem = {
   label: string;
@@ -535,17 +536,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0">
-        <button className="inline-flex items-center px-2 py-4 font-medium text-slate-400 hover:-translate-y-2 hover:text-teal-300">
-          <span className="sr-only">Click to time travel</span>
-          <Image
-            src="/images/tardis/rotate.gif"
-            alt="Spinning Tardis from Doctor Who"
-            width={100}
-            height={86}
-            unoptimized
-          />
-        </button>
+      <div className="fixed bottom-6 right-6 z-40">
+        <ScrollTopButton />
       </div>
     </main>
   );
