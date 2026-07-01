@@ -12,33 +12,24 @@ export function InPageNav({ items }: { items: NavItem[] }) {
   const [activeHref, setActiveHref] = useState(items[0]?.href ?? "");
 
   useEffect(() => {
-    let frame = 0;
+    const sections = items
+      .map((item) => document.getElementById(item.href.slice(1)))
+      .filter((section): section is HTMLElement => Boolean(section));
 
-    function updateActiveSection() {
-      frame = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-      const marker = window.scrollY + window.innerHeight * 0.35;
-      const current =
-        items.reduce((active, item) => {
-          const section = document.getElementById(item.href.slice(1));
-          return section && section.offsetTop <= marker ? item.href : active;
-        }, items[0]?.href ?? "") || items[0]?.href;
+        if (visible) setActiveHref(`#${visible.target.id}`);
+      },
+      { rootMargin: "-25% 0px -55% 0px", threshold: [0.1, 0.5, 0.9] },
+    );
 
-      setActiveHref((active) => (active === current ? active : current));
-    }
-
-    function scheduleUpdate() {
-      if (frame === 0) frame = requestAnimationFrame(updateActiveSection);
-    }
-
-    updateActiveSection();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
+    sections.forEach((section) => observer.observe(section));
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
+      observer.disconnect();
     };
   }, [items]);
 
@@ -59,7 +50,7 @@ export function InPageNav({ items }: { items: NavItem[] }) {
                 />
                 <span
                   className={cn(
-                    "text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200 group-focus-visible:text-slate-200",
+                    "text-xs font-bold text-slate-500 group-hover:text-slate-200 group-focus-visible:text-slate-200",
                     isActive && "text-slate-200",
                   )}
                 >

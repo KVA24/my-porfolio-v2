@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brittanychiang.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Khien Nguyen",
   description:
-    "Khien Nguyen is a software engineer who builds accessible, inclusive products and digital experiences for the web.",
+    "Khien Nguyen is a frontend engineer building accessible, fast web interfaces with clear systems and simple code.",
   openGraph: {
     title: "Khien Nguyen",
     description:
-      "Khien Nguyen is a software engineer who builds accessible, inclusive products and digital experiences for the web.",
+      "Khien Nguyen is a frontend engineer building accessible, fast web interfaces with clear systems and simple code.",
     images: ["/seo/og.png"],
   },
 };
