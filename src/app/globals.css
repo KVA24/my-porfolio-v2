@@ -147,24 +147,8 @@
   .spotlight {
     background: radial-gradient(
       600px circle at var(--spotlight-x) var(--spotlight-y),
-      rgb(29 78 216 / 15%),
+      rgb(34 211 238 / 12%),
       transparent 80%
     );
-  }
-
-  .nav-link.active .nav-indicator {
-    @apply w-16 bg-slate-200;
-  }
-
-  .nav-link.active .nav-text {
-    @apply text-slate-200;
-  }
-
-  .hover-panel {
-    @apply absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block;
-  }
-
-  .korok-cursor {
-    cursor: url("/images/koroks/Elma.png"), pointer;
   }
 }
